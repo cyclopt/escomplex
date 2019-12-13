@@ -1,10 +1,8 @@
-'use strict'
+const projectHandler = require("./project");
+const moduleHandler = require("./module");
 
-const projectHandler = require('./project')
-const moduleHandler = require('./module')
-
-module.exports.analyse = analyse
-module.exports.processResults = processResults
+module.exports.analyse = analyse;
+module.exports.processResults = processResults;
 
 /**
  * Public function `analyse`.
@@ -18,11 +16,11 @@ module.exports.processResults = processResults
  *
  */
 
-function analyse (ast, walker, options) {
-  if (Array.isArray(ast)) {
-    return projectHandler.analyse(ast, walker, options)
-  }
-  return moduleHandler.analyse(ast, walker, options)
+function analyse(ast, walker, options) {
+	if (Array.isArray(ast)) {
+		return projectHandler.analyse(ast, walker, options);
+	}
+	return moduleHandler.analyse(ast, walker, options);
 }
 
 /**
@@ -35,6 +33,6 @@ function analyse (ast, walker, options) {
  *
  */
 
-function processResults (report, noCoreSize) {
-  return projectHandler.processResults(report, noCoreSize)
+function processResults(report, noCoreSize) {
+	return projectHandler.processResults(report, noCoreSize);
 }
