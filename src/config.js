@@ -1,4 +1,4 @@
 module.exports.parserOptions = {
-	ecmaVersion: 10,
+	ecmaVersion: 9,
 	loc: true,
 };

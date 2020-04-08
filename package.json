@@ -43,6 +43,7 @@
     "espree": "^6.1.2",
     "esprima": "^4.0.1",
     "lodash.assign": "^4.2.0",
+    "lodash.get": "^4.4.2",
     "lodash.isfunction": "^3.0.9",
     "lodash.isnil": "^4.0.0",
     "lodash.isnumber": "^3.0.3",
