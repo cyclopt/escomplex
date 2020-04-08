@@ -14,7 +14,7 @@ function HalsteadMetrics() {
 	this.reset();
 }
 
-HalsteadMetrics.prototype.reset = function () {
+HalsteadMetrics.prototype.reset = function reset() {
 	this.vocabulary = 0;
 	this.difficulty = 0;
 	this.volume = 0;
@@ -23,7 +23,7 @@ HalsteadMetrics.prototype.reset = function () {
 	this.time = 0;
 };
 
-HalsteadMetrics.prototype.calculate = function () {
+HalsteadMetrics.prototype.calculate = function calculate() {
 	this.length = this.operators.total + this.operands.total;
 	if (this.length === 0) {
 		this.reset();

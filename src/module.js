@@ -170,6 +170,7 @@ function incrementHalsteadItems(baseReport, metric, identifier) {
 }
 
 function incrementDistinctHalsteadItems(baseReport, metric, identifier) {
+	// eslint-disable-next-line no-prototype-builtins
 	if (Object.prototype.hasOwnProperty(identifier)) {
 		// Avoid clashes with built-in property names.
 		incrementDistinctHalsteadItems(baseReport, metric, `_${identifier}`);
@@ -180,7 +181,7 @@ function incrementDistinctHalsteadItems(baseReport, metric, identifier) {
 }
 
 function isHalsteadMetricDistinct(baseReport, metric, identifier) {
-	return baseReport.halstead[metric].identifiers.indexOf(identifier) === -1;
+	return !baseReport.halstead[metric].identifiers.includes(identifier);
 }
 
 function recordDistinctHalsteadMetric(baseReport, metric, identifier) {

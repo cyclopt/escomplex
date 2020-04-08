@@ -45,9 +45,9 @@ function createAdjacencyMatrix(result) {
 	let density = 0;
 	result.reports
 		.sort((lhs, rhs) => comparePaths(lhs.path, rhs.path))
-		.forEach((ignore, x) => {
+		.forEach((_, x) => {
 			adjacencyMatrix[x] = new Array(result.reports.length);
-			result.reports.forEach((ignore, y) => {
+			result.reports.forEach((__, y) => {
 				adjacencyMatrix[x][y] = getAdjacencyMatrixValue(result.reports, x, y);
 				if (adjacencyMatrix[x][y] === 1) {
 					density += 1;
@@ -162,15 +162,15 @@ function createVisibilityMatrix(result) {
 
 function adjacencyToDistMatrix(matrix) {
 	const distMatrix = [];
-	for (let i = 0; i < matrix.length; i += 1) {
+	for (const [i, row] of matrix.entries()) {
 		distMatrix.push([]);
-		for (let j = 0; j < matrix[i].length; j += 1) {
+		for (const [j, element] of row.entries()) {
 			let value = null;
 			if (i === j) {
 				value = 1;
 			} else {
 				// Where we have 0, set distance to Infinity
-				value = matrix[i][j] || Infinity;
+				value = element || Infinity;
 			}
 			distMatrix[i][j] = value;
 		}

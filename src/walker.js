@@ -32,6 +32,7 @@ function walk(tree, settings, callbacks) {
 		if (_isFunction(definition)) {
 			return definition(settings);
 		}
+		return null;
 	}
 
 	function visitNodes(nodes, assignedName) {

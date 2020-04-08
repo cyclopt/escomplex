@@ -2,32 +2,6 @@
   "name": "escomplex",
   "version": "2.0.0-alpha",
   "description": "Software complexity analysis of JavaScript-family abstract syntax trees.",
-  "homepage": "https://github.com/jared-stilwell/escomplex",
-  "bugs": "https://github.com/jared-stilwell/escomplex/issues",
-  "license": "MIT",
-  "author": "Phil Booth <pmbooth@gmail.com> (https://github.com/philbooth)",
-  "main": "./src",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jared-stilwell/escomplex.git"
-  },
-  "maintainers": [
-    {
-      "name": "Jared Stilwell",
-      "email": "jared.k.stilwell@gmail.com",
-      "url": "https://github.com/jared-stilwell"
-    }
-  ],
-  "contributors": [
-    {
-      "name": "Will Boyd",
-      "url": "https://github.com/lonekorean"
-    },
-    {
-      "name": "Addison Higham",
-      "url": "https://github.com/addisonj"
-    }
-  ],
   "keywords": [
     "escomplex",
     "complexity",
@@ -40,6 +14,30 @@
     "analysis",
     "metrics"
   ],
+  "homepage": "https://github.com/jared-stilwell/escomplex",
+  "bugs": "https://github.com/jared-stilwell/escomplex/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jared-stilwell/escomplex.git"
+  },
+  "license": "MIT",
+  "author": "Phil Booth <pmbooth@gmail.com> (https://github.com/philbooth)",
+  "contributors": [
+    {
+      "name": "Will Boyd",
+      "url": "https://github.com/lonekorean"
+    },
+    {
+      "name": "Addison Higham",
+      "url": "https://github.com/addisonj"
+    }
+  ],
+  "main": "./src",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "npm run lint && npm run test:unit",
+    "test:unit": "mocha --ui tdd --reporter dot --colors"
+  },
   "dependencies": {
     "debug": "^4.1.1",
     "espree": "^6.1.2",
@@ -64,17 +62,19 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^2.3.0",
+    "eslint-plugin-unicorn": "^18.0.1",
     "mocha": "^6.2.2",
     "mockery": "2.1.0",
     "sinon": "^7.5.0",
-    "spooks": "2.0.0",
-    "standard": "^14.3.1"
+    "spooks": "2.0.0"
   },
-  "scripts": {
-    "lint": "standard",
-    "test": "npm run lint && npm run test:unit",
-    "test:unit": "mocha --ui tdd --reporter dot --colors"
-  },
+  "maintainers": [
+    {
+      "name": "Jared Stilwell",
+      "email": "jared.k.stilwell@gmail.com",
+      "url": "https://github.com/jared-stilwell"
+    }
+  ],
   "standard": {
     "globals": [
       "suite",

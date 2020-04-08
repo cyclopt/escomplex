@@ -32,13 +32,13 @@ function defineSyntax(spec) {
 	return _merge({}, DEFAULTS, spec, computedSpec);
 }
 
-const ArrayExpression = (settings) => defineSyntax({
+const ArrayExpression = () => defineSyntax({
 	operators: "[]",
 	operands: safeName,
 	children: "elements",
 });
 
-const AssignmentExpression = (settings) => defineSyntax({
+const AssignmentExpression = () => defineSyntax({
 	operators: (node) => node.operator,
 	children: ["left", "right"],
 	assignableName: (node) => {
@@ -51,16 +51,16 @@ const AssignmentExpression = (settings) => defineSyntax({
 	},
 });
 
-const BinaryExpression = (settings) => defineSyntax({
+const BinaryExpression = () => defineSyntax({
 	operators: (node) => node.operator,
 	children: ["left", "right"],
 });
 
-const BlockStatement = (settings) => defineSyntax({
+const BlockStatement = () => defineSyntax({
 	children: "body",
 });
 
-const BreakStatement = (settings) => defineSyntax({
+const BreakStatement = () => defineSyntax({
 	lloc: 1,
 	operators: "break",
 	children: ["label"],
@@ -107,9 +107,10 @@ function processRequire(node) {
 			path: dependencyPath(args[0], "* dynamic dependencies *"),
 		};
 	}
+	return null;
 }
 
-const CallExpression = (settings) => defineSyntax({
+const CallExpression = () => defineSyntax({
 	lloc: (node) => (node.callee.type === "FunctionExpression" ? 1 : 0),
 	operators: "()",
 	children: ["arguments", "callee"],
@@ -150,6 +151,7 @@ const CallExpression = (settings) => defineSyntax({
 				});
 			}
 		}
+		return null;
 	},
 });
 
@@ -160,7 +162,7 @@ const CatchClause = (settings) => defineSyntax({
 	children: ["param", "body"],
 });
 
-const ConditionalExpression = (settings) => defineSyntax({
+const ConditionalExpression = () => defineSyntax({
 	cyclomatic: 1,
 	operators: ":?",
 	children: [
@@ -170,15 +172,15 @@ const ConditionalExpression = (settings) => defineSyntax({
 	],
 });
 
-const ContinueStatement = (settings) => defineSyntax({
+const ContinueStatement = () => defineSyntax({
 	lloc: 1,
 	operators: "continue",
 	children: ["label"],
 });
 
-const DebuggerStatement = (settings) => defineSyntax({});
+const DebuggerStatement = () => defineSyntax({});
 
-const DoWhileStatement = (settings) => defineSyntax({
+const DoWhileStatement = () => defineSyntax({
 	lloc: 2,
 	cyclomatic: (node) => (node.test ? 1 : 0),
 	operators: "dowhile",
@@ -188,9 +190,9 @@ const DoWhileStatement = (settings) => defineSyntax({
 	],
 });
 
-const EmptyStatement = (settings) => defineSyntax({});
+const EmptyStatement = () => defineSyntax({});
 
-const ExpressionStatement = (settings) => defineSyntax({
+const ExpressionStatement = () => defineSyntax({
 	lloc: 1,
 	children: ["expression"],
 });
@@ -206,7 +208,7 @@ const ForInStatement = (settings) => defineSyntax({
 	],
 });
 
-const ForStatement = (settings) => defineSyntax({
+const ForStatement = () => defineSyntax({
 	lloc: 1,
 	cyclomatic: (node) => (node.test ? 1 : 0),
 	operators: "for",
@@ -218,7 +220,7 @@ const ForStatement = (settings) => defineSyntax({
 	],
 });
 
-const FunctionDeclaration = (settings) => defineSyntax({
+const FunctionDeclaration = () => defineSyntax({
 	lloc: 1,
 	operators: "function",
 	operands: (node) => safeName(node.id),
@@ -226,18 +228,18 @@ const FunctionDeclaration = (settings) => defineSyntax({
 	newScope: true,
 });
 
-const FunctionExpression = (settings) => defineSyntax({
+const FunctionExpression = () => defineSyntax({
 	operators: "function",
 	operands: (node) => safeName(node.id),
 	children: ["params", "body"],
 	newScope: true,
 });
 
-const Identifier = (settings) => defineSyntax({
+const Identifier = () => defineSyntax({
 	operands: (node) => node.name,
 });
 
-const IfStatement = (settings) => defineSyntax({
+const IfStatement = () => defineSyntax({
 	lloc: (node) => (node.alternate ? 2 : 1),
 	cyclomatic: 1,
 	operators: [
@@ -254,9 +256,9 @@ const IfStatement = (settings) => defineSyntax({
 	],
 });
 
-const LabeledStatement = (settings) => defineSyntax({});
+const LabeledStatement = () => defineSyntax({});
 
-const Literal = (settings) => defineSyntax({
+const Literal = () => defineSyntax({
 	operands: (node) => {
 		if (_isString(node.value)) {
 			return `"${node.value}"`;
@@ -275,7 +277,7 @@ const LogicalExpression = (settings) => defineSyntax({
 	children: ["left", "right"],
 });
 
-const MemberExpression = (settings) => defineSyntax({
+const MemberExpression = () => defineSyntax({
 	lloc: (node) => {
 		const type = node.object.type;
 		if (
@@ -291,32 +293,32 @@ const MemberExpression = (settings) => defineSyntax({
 	children: ["object", "property"],
 });
 
-const NewExpression = (settings) => defineSyntax({
+const NewExpression = () => defineSyntax({
 	lloc: (node) => (node.callee.type === "FunctionExpression" ? 1 : 0),
 	operators: "new",
 	children: ["arguments", "callee"],
 });
 
-const ObjectExpression = (settings) => defineSyntax({
+const ObjectExpression = () => defineSyntax({
 	operators: "{}",
 	operands: safeName,
 	children: "properties",
 });
 
-const Property = (settings) => defineSyntax({
+const Property = () => defineSyntax({
 	lloc: 1,
 	operators: ":",
 	children: ["key", "value"],
 	assignableName: (node) => safeName(node.key),
 });
 
-const ReturnStatement = (settings) => defineSyntax({
+const ReturnStatement = () => defineSyntax({
 	lloc: 1,
 	operators: "return",
 	children: "argument",
 });
 
-const SequenceExpression = (settings) => defineSyntax({ children: "expressions" });
+const SequenceExpression = () => defineSyntax({ children: "expressions" });
 
 const SwitchCase = (settings) => defineSyntax({
 	lloc: 1,
@@ -328,7 +330,7 @@ const SwitchCase = (settings) => defineSyntax({
 	],
 });
 
-const SwitchStatement = (settings) => defineSyntax({
+const SwitchStatement = () => defineSyntax({
 	lloc: 1,
 	operators: "switch",
 	children: [
@@ -337,14 +339,14 @@ const SwitchStatement = (settings) => defineSyntax({
 	],
 });
 
-const ThisExpression = (settings) => defineSyntax({ operands: "this" });
-const ThrowStatement = (settings) => defineSyntax({
+const ThisExpression = () => defineSyntax({ operands: "this" });
+const ThrowStatement = () => defineSyntax({
 	lloc: 1,
 	operators: "throw",
 	children: "argument",
 });
 
-const TryStatement = (settings) => defineSyntax({
+const TryStatement = () => defineSyntax({
 	lloc: 1,
 	children: [
 		"block",
@@ -352,22 +354,22 @@ const TryStatement = (settings) => defineSyntax({
 	],
 });
 
-const UnaryExpression = (settings) => defineSyntax({
+const UnaryExpression = () => defineSyntax({
 	operators: (node) => `${node.operator} (${node.prefix ? "pre" : "post"}fix)`,
 	children: "argument",
 });
 
-const UpdateExpression = (settings) => defineSyntax({
+const UpdateExpression = () => defineSyntax({
 	operators: (node) => `${node.operator} (${node.prefix ? "pre" : "post"}fix)`,
 	children: "argument",
 });
 
-const VariableDeclaration = (settings) => defineSyntax({
+const VariableDeclaration = () => defineSyntax({
 	operators: (node) => node.kind,
 	children: "declarations",
 });
 
-const VariableDeclarator = (settings) => defineSyntax({
+const VariableDeclarator = () => defineSyntax({
 	lloc: 1,
 	operators: {
 		filter: (node) => !!node.init,
@@ -377,7 +379,7 @@ const VariableDeclarator = (settings) => defineSyntax({
 	assignableName: (node) => safeName(node.id),
 });
 
-const WhileStatement = (settings) => defineSyntax({
+const WhileStatement = () => defineSyntax({
 	lloc: 1,
 	cyclomatic: (node) => (node.test ? 1 : 0),
 	operators: "while",
@@ -387,7 +389,7 @@ const WhileStatement = (settings) => defineSyntax({
 	],
 });
 
-const WithStatement = (settings) => defineSyntax({
+const WithStatement = () => defineSyntax({
 	lloc: 1,
 	operators: "with",
 	children: [
