@@ -39,6 +39,7 @@
     "test:unit": "mocha --ui tdd --reporter dot --colors"
   },
   "dependencies": {
+    "acorn-jsx": "^5.2.0",
     "debug": "^4.1.1",
     "espree": "^6.1.2",
     "esprima": "^4.0.1",

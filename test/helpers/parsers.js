@@ -6,13 +6,16 @@ var parsers = [
       locations: true,
       onComment: []
     },
-    parser: require('acorn')
+    parser: require('acorn').Parser.extend(require("acorn-jsx")({ allowNamespaces: false }))
   },
   {
     name: 'espree',
     options: {
       ecmaVersion: 8,
-      loc: true
+			loc: true,
+			ecmaFeatures: {
+				jsx: true,
+			},
     },
     parser: require('espree')
   },
@@ -20,14 +23,18 @@ var parsers = [
     name: 'espree',
     options: {
       ecmaVersion: 9,
-      loc: true
+			loc: true,
+			ecmaFeatures: {
+				jsx: true,
+			},
     },
     parser: require('espree')
   },
   {
     name: 'esprima',
     options: {
-      loc: true
+			loc: true,
+			jsx: true,
     },
     parser: require('esprima')
   }
