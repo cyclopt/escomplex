@@ -1,6 +1,7 @@
 
-const defineSyntax = require("./define-syntax");
 const safeName = require("../safeName");
+
+const defineSyntax = require("./define-syntax");
 
 const AwaitExpression = () => defineSyntax({
 	operators: "await",

@@ -1,10 +1,24 @@
-const _isString = require("lodash.isstring");
 const assert = require("assert");
 const path = require("path");
+
+const _isString = require("lodash.isstring");
+
 const moduleAnalyser = require("./module");
 
 exports.analyse = analyse;
 exports.processResults = processResults;
+
+const percentify = (value, limit) => (limit === 0 ? 0 : (value / limit) * 100);
+const percentifyDensity = (density, matrix) => percentify(density, matrix.length * matrix.length);
+
+const isCommonJSDependency = (dependency) => dependency.type === "CommonJS";
+const isInternalCommonJSDependency = (dependency) => (
+	dependency.path[0] === "."
+	&& (
+		dependency.path[1] === path.sep
+		|| (dependency.path[1] === "." && dependency.path[2] === path.sep)
+	)
+);
 
 function analyse(modules, walker, options) {
 	// TODO: Asynchronize.
@@ -99,18 +113,6 @@ function checkDependency(from, dependency, to) {
 	return isDependency(from, dependency, to);
 }
 
-const percentify = (value, limit) => (limit === 0 ? 0 : (value / limit) * 100);
-const percentifyDensity = (density, matrix) => percentify(density, matrix.length * matrix.length);
-
-const isCommonJSDependency = (dependency) => dependency.type === "CommonJS";
-const isInternalCommonJSDependency = (dependency) => (
-	dependency.path[0] === "."
-	&& (
-		dependency.path[1] === path.sep
-		|| (dependency.path[1] === "." && dependency.path[2] === path.sep)
-	)
-);
-
 function isDependency(from, dependency, to) {
 	const dependencyPath = dependency.path;
 	const fromFileAbsolutePath = path.resolve(from);
@@ -166,12 +168,7 @@ function adjacencyToDistMatrix(matrix) {
 		distMatrix.push([]);
 		for (const [j, element] of row.entries()) {
 			let value = null;
-			if (i === j) {
-				value = 1;
-			} else {
-				// Where we have 0, set distance to Infinity
-				value = element || Infinity;
-			}
+			value = i === j ? 1 : element || Infinity;
 			distMatrix[i][j] = value;
 		}
 	}
@@ -229,7 +226,6 @@ function compareNumbers(lhs, rhs) {
 }
 
 function calculateAverages(result) {
-	let divisor;
 	const sums = {
 		cyclomatic: 0,
 		effort: 0,
@@ -237,11 +233,7 @@ function calculateAverages(result) {
 		maintainability: 0,
 		params: 0,
 	};
-	if (result.reports.length === 0) {
-		divisor = 1;
-	} else {
-		divisor = result.reports.length;
-	}
+	const divisor = result.reports.length === 0 ? 1 : result.reports.length;
 	result.reports.forEach(
 		(report) => Object.keys(sums).forEach(
 			(key) => { sums[key] += report[key]; },

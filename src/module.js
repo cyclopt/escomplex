@@ -1,9 +1,11 @@
 
+const assert = require("assert");
+
 const _isObject = require("lodash.isobject");
 const _isFunction = require("lodash.isfunction");
 const _isNumber = require("lodash.isnumber");
-const assert = require("assert");
 const debug = require("debug")("escomplex:module");
+
 const HalsteadMetrics = require("./metrics/halstead");
 
 const defaultSettings = {
@@ -64,11 +66,7 @@ function analyse(ast, walker, options) {
 
 	function popScope() {
 		scopeStack.pop();
-		if (scopeStack.length > 0) {
-			currentReport = scopeStack[scopeStack.length - 1];
-		} else {
-			currentReport = undefined;
-		}
+		currentReport = scopeStack.length > 0 ? scopeStack[scopeStack.length - 1] : undefined;
 	}
 
 	return report;
@@ -138,12 +136,7 @@ function incrementCyclomatic(currentReport, amount) {
 function processHalsteadMetric(node, syntax, metric, currentReport) {
 	if (Array.isArray(syntax[metric])) {
 		syntax[metric].forEach((s) => {
-			let identifier;
-			if (_isFunction(s.identifier)) {
-				identifier = s.identifier(node);
-			} else {
-				identifier = s.identifier;
-			}
+			const identifier = _isFunction(s.identifier) ? s.identifier(node) : s.identifier;
 			if ((_isFunction(s.filter) === false || s.filter(node) === true) && (identifier !== undefined)) {
 				halsteadItemEncountered(currentReport, metric, identifier);
 			}

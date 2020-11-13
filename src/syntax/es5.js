@@ -1,5 +1,7 @@
 const _isString = require("lodash.isstring");
+
 const safeName = require("../safeName");
+
 const defineSyntax = require("./define-syntax");
 
 const ArrayExpression = () => defineSyntax({

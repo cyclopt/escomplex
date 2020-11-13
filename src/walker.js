@@ -1,8 +1,10 @@
 
+const assert = require("assert");
+
 const _isObject = require("lodash.isobject");
 const _isFunction = require("lodash.isfunction");
-const assert = require("assert");
 const debug = require("debug")("escomplex:walker");
+
 const safeName = require("./safeName");
 const syntaxDefinitions = require("./syntax");
 

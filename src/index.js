@@ -2,6 +2,7 @@ const _assign = require("lodash.assign");
 const _negate = require("lodash.negate");
 const _isNil = require("lodash.isnil");
 const espree = require("espree");
+
 const walker = require("./walker");
 const core = require("./core");
 const defaultParserOptions = require("./config").parserOptions;
@@ -71,3 +72,15 @@ function parseProject(sources, parser, parserOptions, options) {
 	})
 		.filter(_negate(_isNil));
 }
+
+// const escomplexProperties = {
+// 	ignoreErrors: true,
+// 	skipCalculation: true,
+// };
+
+// const fs = require("fs");
+
+// const source = fs.readFileSync("C:/Users/Michail Papamichail/Desktop/Cyclopt/wabli/code/server/server.js").toString();
+// // const source = fs.readFileSync("C:/Users/Michail Papamichail/Desktop/Cyclopt/wabli/code/aaa/src/App.js").toString();
+// console.log(source);
+// console.log(module.exports.analyse(source, escomplexProperties));

@@ -14,6 +14,7 @@ function HalsteadMetrics() {
 	this.reset();
 }
 
+// eslint-disable-next-line func-names
 HalsteadMetrics.prototype.reset = function reset() {
 	this.vocabulary = 0;
 	this.difficulty = 0;
@@ -23,6 +24,7 @@ HalsteadMetrics.prototype.reset = function reset() {
 	this.time = 0;
 };
 
+// eslint-disable-next-line func-names
 HalsteadMetrics.prototype.calculate = function calculate() {
 	this.length = this.operators.total + this.operands.total;
 	if (this.length === 0) {

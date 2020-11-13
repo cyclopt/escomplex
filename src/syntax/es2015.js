@@ -1,5 +1,6 @@
-const defineSyntax = require("./define-syntax");
 const safeName = require("../safeName");
+
+const defineSyntax = require("./define-syntax");
 
 const ForOfStatement = (settings) => defineSyntax({
 	lloc: 1,
@@ -108,8 +109,8 @@ const TaggedTemplateExpression = () => defineSyntax({
 // if it is shorthand it does not increment the operators,
 // nor does it add a logical loc
 const Property = () => defineSyntax({
-	lloc: (node) => (!node.shorthand ? 1 : 0),
-	operators: (node) => (!node.shorthand ? ":" : undefined),
+	lloc: (node) => (node.shorthand ? 0 : 1),
+	operators: (node) => (node.shorthand ? undefined : ":"),
 	// Note that when shorthand is true, key and value will be
 	// the same, so total operands will be 1 higher than it ideally should be
 	// No easy fix.

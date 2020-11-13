@@ -1,9 +1,10 @@
 const _merge = require("lodash.merge");
+
 const safeArray = require("../safeArray");
 
 const DEFAULTS = {
 	assignableName: undefined,
-	children: safeArray(undefined),
+	children: safeArray(),
 	cyclomatic: 0,
 	lloc: 0,
 	newScope: undefined,
